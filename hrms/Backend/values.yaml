@@ -1,0 +1,146 @@
+replicaCount: 1
+image:
+  repository: registry.visionwaves.com/hrms
+  tag: 6.0.0_SIT_v4.0.395_DEMO
+  pullPolicy: Always
+imagePullSecrets: []
+nameOverride: ''
+fullnameOverride: ''
+serviceAccount:
+  create: true
+  annotations: {}
+  name: test-hrms-sa
+  imagePullSecrets:
+  - name: visionwaves-reg-cred
+rollingUpdate:
+  maxSurge: 50%
+  maxUnavailable: 0%
+podAnnotations:
+  prometheus.io/scrape: 'true'
+  prometheus.io/path: /hrms/actuator/prometheus
+  prometheus.io/scheme: http
+  prometheus.io/port: '9019'
+  vault.hashicorp.com/agent-inject: 'true'
+  vault.hashicorp.com/agent-init-first: 'true'
+  vault.hashicorp.com/role: test-hrms-role
+  vault.hashicorp.com/agent-inject-secret-database-config.txt: kv/data/hrms
+  vault.hashicorp.com/agent-inject-template-secrets.env: |
+    {{- with secret "kv/data/hrms" -}}
+    {{- range $key, $value := .Data.data -}}
+    export {{$key}}="{{$value}}"
+    {{- "\n" -}}
+    {{- end }}
+    {{- end }}
+podSecurityContext: {}
+securityContext: {}
+service:
+  port: 80
+  targetPort: 8081
+  type: ClusterIP
+ingress:
+  enabled: false
+  annotations: {}
+  hosts:
+  - host: chart-example.local
+    paths: []
+  tls: []
+sidecar:
+  Name: melody-service
+  image:
+    repository: registry.visionwaves.com/melody-service
+    tag: 1.0.1
+    pullPolicy: Always
+  ports:
+    containerPort: 9096
+virtualService:
+  enabled: false
+  context: /hrms
+  hosts: '*'
+  gateways: fs-gateway
+resourcesLimits:
+  cpu: 800m
+  memory: 1G
+requestsResources:
+  cpu: 800m
+  memory: 1G
+autoscaling:
+  enabled: true
+  minReplicas: 1
+  maxReplicas: 2
+  targetCPUUtilizationPercentage: 75
+  targetMemoryUtilizationPercentage: 75
+nodeSelector: {}
+tolerations: []
+affinity: {}
+livenessProbe:
+  enable: true
+  path: /hrms/rest/ping
+  initialDelaySeconds: 30
+  periodSeconds: 10
+  failureThreshold: 3
+  timeoutSeconds: 3
+readinessProbe:
+  path: /hrms/rest/ping
+  initialDelaySeconds: 30
+  periodSeconds: 10
+  timeoutSeconds: 3
+ports:
+  containerPort: 8081
+volumeMounts: null
+nfs: null
+volumeName: null
+volumes: null
+configMap:
+  defaultMode: 493
+env:
+  MYSQL_URL: HC3Dk03Dp6ENBYDKK2KGpQ==:Emulolvy03i9gBanflUCJw==:GtC7lOckrsHgQfC5ZJJh28hRrL0wqjxrpBR+zrtmACnxY87ILu5hwfnLCTvrWoO+Gl8n2h5vYcfk6Cg+ursZi8UfKywiMuQXk1g/OzO4ArCuu/Od3el5oFyX/cldawePiodTDPtzXUV+koczdcETAO7og7NC6ThA24nNuTjdRi9XQd78223NRpr49c+JJSP+rKStmCna2g1H7eA42/cNFIHHAlmACl/9oKMGeaDciXkfYbmZ1YIYCFTRFMcEBQPHhmzC3IkAXaqR+k6IqsShZNTf5GunNKBGHd+rRjVQZHmx9MfDmpFzqVVerx+2bBqtY0cq174M1fVlPxFbTFM09/VOE5wAWBis5tjC9H8TMmEKdiJLTCi0n1OovF7wfNj1
+  MYSQL_USERNAME: HsfmgcqiaaD2HUg0edAXLw==:+pzFNRQve5iYIrIlwyvcCw==:yNgyrZOC3ydd/Of88/QwCw==
+  MYSQL_CHECKSUM: HW9Q2uA4qNEV2hsXnHltkg==:3BDTv2qSZ5fCHC4g5/T6QA==:IoQh0yBB6bz1sz0TsZ5VqQ==
+  preferIPv6Addresses: false
+  SERVICE_PORT: 8081
+  SERVICE_CONTEXT: /hrms
+  SERVICE_JAVAMELODY_USERPASS: cHJvZHVjdDpwcm9kdWN0Cg==
+  redisSenitalList: lj4j9n7g1fjW43/64LF417Q15+yk36v8ZTwKVuS/rfQ0BUKdly/O7WHOskMf3YMg5J+LDFCi1Q6BMNyu5h2pJTe66ZmPbjFC/tD7GZR7R3k=,lj4j9n7g1fjW43/64LF415DeayaMPwEES2zdCIUVVWD9awkkyiueKcMoca5oGKd3smGYlSFqMQp7EqEBPAKo1IKajtxLb8H/SOMWwaGV9Ro=,lj4j9n7g1fjW43/64LF41zpB5FnnqbDIoBuqYf6SjQfCzYaHiQybdkdwnNus3xNNDHQiH5evYNWdmFQETu3FqB6YuZQO7v054nTFUX7Zxkw=
+  redisMaster: tHSoqN4LH8Ae9+HrbpKIXg==
+  redisMasterAuth: 7+izoW1FilKhEwNRfy2hww==
+  redisSenitalEnable: B6V+uDmE1LvqI+UAcULNtg==
+  auditKafkaServiceEnable: 'false'
+  redis.idle.min: S3R/kLwWNjromPt3yYrXgQ==
+  redis.idle.max: HDlw71nze5lQXpvD534idw==
+  UM_URL: http://base-utility-service/base/util/rest
+  geoUrl: http://base-utility-service/base/util/rest
+  INVENTORY_URL: http://microservice/platform/rest
+  plateformUrl: http://base-utility-service/base/util/rest
+  FM_URL: http://fm-microservice/fm/rest
+  PM_URL: null
+  meta: http://microservice/platform/rest
+  layer: null
+  PORT: '8081'
+  NOTIFICATION_URL: http://base-utility-service/base/util/rest
+  WFM_URL: http://workflow-management-service/wfm/rest
+  VB_URL: http://form-builder-service/fb/rest
+  NAMING_URL: http://identity-management-service/ipam-naming/rest
+  CHECLIST_BUILDER_URL: http://catalogue-builder-service/catalogue/rest
+  DOC_MGMT_URL: http://document-management-service/document-management/rest
+  PLATFORM_SERVICE_URL: http://base-utility-service/base/util/rest
+  CB_URL: http://catalogue-builder-service/cb/rest
+  COMMENT_SERVICE_URL: http://workflow-management-service/wfm/rest
+  SLA_URL: http://sla.ansible.svc.cluster.local/sla/rest
+  ONESEARCH_URL: http://onesearch-service.ansible.svc.cluster.local/onesearch/rest
+  STORAGE_END_POINT: eN9hI6a2NSe77HLT3InIFA==:JoYe0Dt0EHf+YIQWdIGWkQ==:3UMZaCLAI822StXGQ/G8AThh8jBeddoRydv9T80L3Bb2Oikd5mQi4cRe6yMW7rxo
+  STORAGE_ACCESS_KEY: Az9duDK7T/XA/aqzvrXVig==:3BRyv1oycc+/chSs0X5yvg==:uJGqlqN2GJO6A1efll8U/w==
+  STORAGE_SECRET_KEY: Az9duDK7T/XA/aqzvrXVig==:3BRyv1oycc+/chSs0X5yvg==:uJGqlqN2GJO6A1efll8U/w==
+  ROOT_DIR_HRMS_PAYROLL_FILE: rpLJRt7j0aQchSD53ujEkQ==:JAQPc/iSNj75HM4zUyDtVQ==:YwYzdulG5ey6LRhOaOMEiw==
+  MELODY_CONTEXT: /hrms
+  READINESS: /hrms/rest/ping
+  MELODY_CREDENTIALS: bootnext:bootnext
+  MELODY_URL: apm-collectserver.ansible.svc.cluster.local:80/APM/?
+  MELODY_PORT: '8081'
+  DEPLOYMENT_NAME: hrms-service
+  GENERATIVE_SERVICE: http://x101-ai/api/GaaS/rest
+  WEB_DOMAIN: demo.visionwaves.com
+collectServer:
+  register: false
+  postStartScript: /protected/ops-script/postStart.sh
+  preStopEnable: false
+  preStopScript: /protected/ops-script/Pre-Stop.sh

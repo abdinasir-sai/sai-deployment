@@ -1,0 +1,10 @@
+{
+  "KEYCLOAK": {
+    "URL": "20.231.253.100/auth/",
+    "REALM": "OSS",
+    "CLIENT_ID": "rcp",
+    "ADMIN_ROLE": "ACTIVITI_ADMIN",
+    "REDIRECT_URI": "20.231.253.100/",
+    "AUDIENCE": "apim"
+  }
+}

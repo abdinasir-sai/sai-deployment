@@ -1,0 +1,601 @@
+-- MySQL dump 10.13  Distrib 9.0.1, for macos15.1 (arm64)
+--
+-- Host: localhost    Database: generatedapps
+-- ------------------------------------------------------
+-- Server version	9.0.1
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!50503 SET NAMES utf8mb4 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+
+
+--
+-- Table structure for table `EMPLOYEE_CERTIFICATION`
+--
+
+DROP TABLE IF EXISTS `EMPLOYEE_CERTIFICATION`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `EMPLOYEE_CERTIFICATION` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `DELETED` tinyint(1) NOT NULL DEFAULT '0',
+  `EMPLOYEE_ID` int DEFAULT NULL,
+  `CERTIFICATION_NAME` varchar(255) DEFAULT NULL,
+  `CERTIFICATION_ID` varchar(255) DEFAULT NULL,
+  `ISSUING_INSTITUTE` varchar(255) DEFAULT NULL,
+  `CERTIFICATION_TYPE` enum('Employment','Internship','Project','Contractual','Part-Time','Volunteering','Freelance','Consulting','Apprenticeship','Temporary','Training','Research') DEFAULT NULL,
+  `ISSUE_DATE` datetime DEFAULT NULL,
+  `EXPIRATION_DATE` datetime DEFAULT NULL,
+  `CERTIFICATION_STATUS` enum('Active','Expired','Pending','Revoked','Renewal') DEFAULT NULL,
+  `CERTIFICATION_LEVEL` enum('Associate','Professional','Master') DEFAULT NULL,
+  `UPLOAD_CERTIFICATE` varchar(200) DEFAULT NULL,
+  `REMARKS` longtext,
+  `PROJECTS` longtext,
+  `RENEWAL_REQUIRED` bit(1) NOT NULL DEFAULT b'0',
+  `RENEWAL_DATE` datetime DEFAULT NULL,
+  `START_DATE` datetime DEFAULT NULL,
+  `END_DATE` datetime DEFAULT NULL,
+  `CREATED_TIME` datetime(6) DEFAULT NULL,
+  `MODIFIED_TIME` datetime(6) DEFAULT NULL,
+  `CREATOR` int DEFAULT NULL,
+  `LAST_MODIFIER` int DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `EMPLOYEE_ID` (`EMPLOYEE_ID`),
+  KEY `FK9t9lm2qacidhjlns39u9efo9o` (`CREATOR`),
+  KEY `FKt57rpn3vwxgtkcy2esyigg20p` (`LAST_MODIFIER`),
+  CONSTRAINT `employee_certification_ibfk_1` FOREIGN KEY (`EMPLOYEE_ID`) REFERENCES `EMPLOYEE` (`ID`),
+  CONSTRAINT `FK9t9lm2qacidhjlns39u9efo9o` FOREIGN KEY (`CREATOR`) REFERENCES `USER` (`ID`),
+  CONSTRAINT `FKt57rpn3vwxgtkcy2esyigg20p` FOREIGN KEY (`LAST_MODIFIER`) REFERENCES `USER` (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `EMPLOYEE_CERTIFICATION`
+--
+
+LOCK TABLES `EMPLOYEE_CERTIFICATION` WRITE;
+/*!40000 ALTER TABLE `EMPLOYEE_CERTIFICATION` DISABLE KEYS */;
+/*!40000 ALTER TABLE `EMPLOYEE_CERTIFICATION` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `EMPLOYEE_CERTIFICATION_AUD`
+--
+
+DROP TABLE IF EXISTS `EMPLOYEE_CERTIFICATION_AUD`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `EMPLOYEE_CERTIFICATION_AUD` (
+  `id` int NOT NULL,
+  `REV` int NOT NULL,
+  `REVTYPE` tinyint DEFAULT NULL,
+  `CREATED_TIME` datetime(6) DEFAULT NULL,
+  `MODIFIED_TIME` datetime(6) DEFAULT NULL,
+  `CERTIFICATION_ID` varchar(255) DEFAULT NULL,
+  `CERTIFICATION_LEVEL` enum('Associate','Professional','Master') DEFAULT NULL,
+  `CERTIFICATION_NAME` varchar(255) DEFAULT NULL,
+  `CERTIFICATION_STATUS` enum('Active','Expired','Pending','Revoked','Renewal') DEFAULT NULL,
+  `CERTIFICATION_TYPE` enum('Employment','Internship','Project','Contractual','Part-Time','Volunteering','Freelance','Consulting','Apprenticeship','Temporary','Training','Research') DEFAULT NULL,
+  `deleted` bit(1) DEFAULT NULL,
+  `END_DATE` datetime(6) DEFAULT NULL,
+  `EXPIRATION_DATE` datetime(6) DEFAULT NULL,
+  `ISSUE_DATE` datetime(6) DEFAULT NULL,
+  `ISSUING_INSTITUTE` varchar(255) DEFAULT NULL,
+  `projects` longtext,
+  `remarks` longtext,
+  `RENEWAL_DATE` datetime(6) DEFAULT NULL,
+  `RENEWAL_REQUIRED` bit(1) DEFAULT NULL,
+  `START_DATE` datetime(6) DEFAULT NULL,
+  `UPLOAD_CERTIFICATE` varchar(200) DEFAULT NULL,
+  `CREATOR` int DEFAULT NULL,
+  `LAST_MODIFIER` int DEFAULT NULL,
+  `EMPLOYEE_ID` int DEFAULT NULL,
+  PRIMARY KEY (`REV`,`id`),
+  CONSTRAINT `FKig16n6mhkdxi4k1k2a2eo72qu` FOREIGN KEY (`REV`) REFERENCES `REVINFO` (`REV`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `EMPLOYEE_CERTIFICATION_AUD`
+--
+
+LOCK TABLES `EMPLOYEE_CERTIFICATION_AUD` WRITE;
+/*!40000 ALTER TABLE `EMPLOYEE_CERTIFICATION_AUD` DISABLE KEYS */;
+/*!40000 ALTER TABLE `EMPLOYEE_CERTIFICATION_AUD` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `EMPLOYEE_CLEARANCE_CERTIFICATE`
+--
+
+DROP TABLE IF EXISTS `EMPLOYEE_CLEARANCE_CERTIFICATE`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `EMPLOYEE_CLEARANCE_CERTIFICATE` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `DELETED` tinyint(1) NOT NULL DEFAULT '0',
+  `EMPLOYEE_ID` int DEFAULT NULL,
+  `CERTIFICATE_TYPE` enum('Medical','Security','Financial','Employment','Background','Compliance','Exit','Project','Legal','IT','Safety','Government','Tax') DEFAULT NULL,
+  `ISSUING_DEPARTMENT` varchar(100) DEFAULT NULL,
+  `ISSUE_DATE` datetime DEFAULT NULL,
+  `EXPIRY_DATE` datetime DEFAULT NULL,
+  `CLEARANCE_STATUS` enum('Pending','Approved','Rejected') DEFAULT NULL,
+  `MANDATORY` bit(1) NOT NULL DEFAULT b'0',
+  `VERIFICATION_DETAILS` longtext,
+  `CERTIFICATE_NUMBER` varchar(50) DEFAULT NULL,
+  `DOCUMENT_UPLOAD` varchar(255) DEFAULT NULL,
+  `APPROVER_NAME` varchar(100) DEFAULT NULL,
+  `APPROVER_DESIGNATION` varchar(100) DEFAULT NULL,
+  `APPROVAL_DATE` datetime DEFAULT NULL,
+  `VALIDITY_SCOPE` varchar(100) DEFAULT NULL,
+  `REMARKS` longtext,
+  `DEPENDENCIES` longtext,
+  `ROLE_REQUIREMENTS` longtext,
+  `CREATED_TIME` datetime(6) DEFAULT NULL,
+  `MODIFIED_TIME` datetime(6) DEFAULT NULL,
+  `CREATOR` int DEFAULT NULL,
+  `LAST_MODIFIER` int DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `EMPLOYEE_ID` (`EMPLOYEE_ID`),
+  KEY `FKeydqw9ytalfxu67p389h5gotw` (`CREATOR`),
+  KEY `FKd5qasovtrulqmctbhk2cvi4p2` (`LAST_MODIFIER`),
+  CONSTRAINT `employee_clearance_certificate_ibfk_1` FOREIGN KEY (`EMPLOYEE_ID`) REFERENCES `EMPLOYEE` (`ID`),
+  CONSTRAINT `FKd5qasovtrulqmctbhk2cvi4p2` FOREIGN KEY (`LAST_MODIFIER`) REFERENCES `USER` (`ID`),
+  CONSTRAINT `FKeydqw9ytalfxu67p389h5gotw` FOREIGN KEY (`CREATOR`) REFERENCES `USER` (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `EMPLOYEE_CLEARANCE_CERTIFICATE`
+--
+
+LOCK TABLES `EMPLOYEE_CLEARANCE_CERTIFICATE` WRITE;
+/*!40000 ALTER TABLE `EMPLOYEE_CLEARANCE_CERTIFICATE` DISABLE KEYS */;
+/*!40000 ALTER TABLE `EMPLOYEE_CLEARANCE_CERTIFICATE` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `EMPLOYEE_CLEARANCE_CERTIFICATE_AUD`
+--
+
+DROP TABLE IF EXISTS `EMPLOYEE_CLEARANCE_CERTIFICATE_AUD`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `EMPLOYEE_CLEARANCE_CERTIFICATE_AUD` (
+  `id` int NOT NULL,
+  `REV` int NOT NULL,
+  `REVTYPE` tinyint DEFAULT NULL,
+  `CREATED_TIME` datetime(6) DEFAULT NULL,
+  `MODIFIED_TIME` datetime(6) DEFAULT NULL,
+  `APPROVAL_DATE` datetime(6) DEFAULT NULL,
+  `APPROVER_DESIGNATION` varchar(100) DEFAULT NULL,
+  `APPROVER_NAME` varchar(100) DEFAULT NULL,
+  `CERTIFICATE_NUMBER` varchar(50) DEFAULT NULL,
+  `CERTIFICATE_TYPE` enum('Medical','Security','Financial','Employment','Background','Compliance','Exit','Project','Legal','IT','Safety','Government','Tax') DEFAULT NULL,
+  `CLEARANCE_STATUS` enum('Pending','Approved','Rejected') DEFAULT NULL,
+  `deleted` bit(1) DEFAULT NULL,
+  `dependencies` longtext,
+  `DOCUMENT_UPLOAD` varchar(255) DEFAULT NULL,
+  `EXPIRY_DATE` datetime(6) DEFAULT NULL,
+  `ISSUE_DATE` datetime(6) DEFAULT NULL,
+  `ISSUING_DEPARTMENT` varchar(100) DEFAULT NULL,
+  `mandatory` bit(1) DEFAULT NULL,
+  `remarks` longtext,
+  `ROLE_REQUIREMENTS` longtext,
+  `VALIDITY_SCOPE` varchar(100) DEFAULT NULL,
+  `VERIFICATION_DETAILS` longtext,
+  `CREATOR` int DEFAULT NULL,
+  `LAST_MODIFIER` int DEFAULT NULL,
+  `E` int DEFAULT NULL,
+  PRIMARY KEY (`REV`,`id`),
+  CONSTRAINT `FKipkoy31glu3534b58pck3taj3` FOREIGN KEY (`REV`) REFERENCES `REVINFO` (`REV`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `EMPLOYEE_CLEARANCE_CERTIFICATE_AUD`
+--
+
+LOCK TABLES `EMPLOYEE_CLEARANCE_CERTIFICATE_AUD` WRITE;
+/*!40000 ALTER TABLE `EMPLOYEE_CLEARANCE_CERTIFICATE_AUD` DISABLE KEYS */;
+/*!40000 ALTER TABLE `EMPLOYEE_CLEARANCE_CERTIFICATE_AUD` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `EMPLOYEE_LANGUAGE`
+--
+
+DROP TABLE IF EXISTS `EMPLOYEE_LANGUAGE`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `EMPLOYEE_LANGUAGE` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `DELETED` tinyint(1) NOT NULL DEFAULT '0',
+  `EMPLOYEE_ID` int DEFAULT NULL,
+  `LICENSE_NAME` varchar(255) DEFAULT NULL,
+  `ISSUING_AUTHORITY` varchar(255) DEFAULT NULL,
+  `LICENSE_NUMBER` varchar(100) DEFAULT NULL,
+  `ISSUE_DATE` datetime DEFAULT NULL,
+  `EXPIRATION_DATE` datetime DEFAULT NULL,
+  `LICENSE_STATUS` enum('Active','Expired','Pending','Revoked','Renewal') DEFAULT NULL,
+  `SCOPE_OF_PRACTICE` longtext,
+  `RENEWAL_REQUIRED` bit(1) NOT NULL DEFAULT b'0',
+  `RENEWAL_DATE` datetime DEFAULT NULL,
+  `COUNTRY_OF_VALIDITY` varchar(100) DEFAULT NULL,
+  `DOCUMENT_UPLOAD` varchar(200) DEFAULT NULL,
+  `LICENSE_TYPE` enum('Technical','Medical','Legal','Other') DEFAULT NULL,
+  `REMARKS` longtext,
+  `CONTINUING_EDUCATION_REQUIREMENT` longtext,
+  `CERTIFICATION_URL` varchar(255) DEFAULT NULL,
+  `CREATED_TIME` datetime(6) DEFAULT NULL,
+  `MODIFIED_TIME` datetime(6) DEFAULT NULL,
+  `CREATOR` int DEFAULT NULL,
+  `LAST_MODIFIER` int DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `EMPLOYEE_ID` (`EMPLOYEE_ID`),
+  KEY `FKgcruli3esfsctlm26gfikr3kr` (`CREATOR`),
+  KEY `FKii8md9kmrms2fnit66jrndv8t` (`LAST_MODIFIER`),
+  CONSTRAINT `employee_language_ibfk_1` FOREIGN KEY (`EMPLOYEE_ID`) REFERENCES `EMPLOYEE` (`ID`),
+  CONSTRAINT `FKgcruli3esfsctlm26gfikr3kr` FOREIGN KEY (`CREATOR`) REFERENCES `USER` (`ID`),
+  CONSTRAINT `FKii8md9kmrms2fnit66jrndv8t` FOREIGN KEY (`LAST_MODIFIER`) REFERENCES `USER` (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `EMPLOYEE_LANGUAGE`
+--
+
+LOCK TABLES `EMPLOYEE_LANGUAGE` WRITE;
+/*!40000 ALTER TABLE `EMPLOYEE_LANGUAGE` DISABLE KEYS */;
+/*!40000 ALTER TABLE `EMPLOYEE_LANGUAGE` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `EMPLOYEE_LANGUAGE_AUD`
+--
+
+DROP TABLE IF EXISTS `EMPLOYEE_LANGUAGE_AUD`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `EMPLOYEE_LANGUAGE_AUD` (
+  `id` int NOT NULL,
+  `REV` int NOT NULL,
+  `REVTYPE` tinyint DEFAULT NULL,
+  `CREATED_TIME` datetime(6) DEFAULT NULL,
+  `MODIFIED_TIME` datetime(6) DEFAULT NULL,
+  `CERTIFICATION_URL` varchar(255) DEFAULT NULL,
+  `CONTINUING_EDUCATION_REQUIREMENT` longtext,
+  `COUNTRY_OF_VALIDITY` varchar(100) DEFAULT NULL,
+  `deleted` bit(1) DEFAULT NULL,
+  `DOCUMENT_UPLOAD` varchar(200) DEFAULT NULL,
+  `EXPIRATION_DATE` datetime(6) DEFAULT NULL,
+  `ISSUE_DATE` datetime(6) DEFAULT NULL,
+  `ISSUING_AUTHORITY` varchar(255) DEFAULT NULL,
+  `LICENSE_NAME` varchar(255) DEFAULT NULL,
+  `LICENSE_NUMBER` varchar(100) DEFAULT NULL,
+  `LICENSE_STATUS` enum('Active','Expired','Pending','Revoked','Renewal') DEFAULT NULL,
+  `LICENSE_TYPE` enum('Technical','Medical','Legal','Other') DEFAULT NULL,
+  `remarks` longtext,
+  `RENEWAL_DATE` datetime(6) DEFAULT NULL,
+  `RENEWAL_REQUIRED` bit(1) DEFAULT NULL,
+  `SCOPE_OF_PRACTICE` longtext,
+  `CREATOR` int DEFAULT NULL,
+  `LAST_MODIFIER` int DEFAULT NULL,
+  `EMPLOYEE_ID` int DEFAULT NULL,
+  PRIMARY KEY (`REV`,`id`),
+  CONSTRAINT `FKdwvh5i4llq3erii9etbpk9gja` FOREIGN KEY (`REV`) REFERENCES `REVINFO` (`REV`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `EMPLOYEE_LANGUAGE_AUD`
+--
+
+LOCK TABLES `EMPLOYEE_LANGUAGE_AUD` WRITE;
+/*!40000 ALTER TABLE `EMPLOYEE_LANGUAGE_AUD` DISABLE KEYS */;
+/*!40000 ALTER TABLE `EMPLOYEE_LANGUAGE_AUD` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `EMPLOYEE_PROFESSIONAL_LICENCE`
+--
+
+DROP TABLE IF EXISTS `EMPLOYEE_PROFESSIONAL_LICENCE`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `EMPLOYEE_PROFESSIONAL_LICENCE` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `DELETED` tinyint(1) NOT NULL DEFAULT '0',
+  `EMPLOYEE_ID` int DEFAULT NULL,
+  `LICENSE_NAME` varchar(255) DEFAULT NULL,
+  `ISSUING_AUTHORITY` varchar(255) DEFAULT NULL,
+  `LICENSE_NUMBER` varchar(100) DEFAULT NULL,
+  `ISSUE_DATE` datetime DEFAULT NULL,
+  `EXPIRATION_DATE` datetime DEFAULT NULL,
+  `LICENSE_STATUS` enum('Active','Expired','Pending','Revoked','Renewal') DEFAULT NULL,
+  `SCOPE_OF_PRACTICE` longtext,
+  `RENEWAL_REQUIRED` bit(1) NOT NULL DEFAULT b'0',
+  `RENEWAL_DATE` datetime DEFAULT NULL,
+  `COUNTRY_OF_VALIDITY` varchar(100) DEFAULT NULL,
+  `DOCUMENT_UPLOAD` varchar(200) DEFAULT NULL,
+  `LICENSE_TYPE` enum('Technical','Medical','Legal','Educational','Safety','Driving','Financial','Engineering','IT/Technology','Real Estate','Consulting','Management','Scientific','Creative/Arts','Healthcare','Environmental','Maritime','Aviation','Construction','Other') DEFAULT NULL,
+  `REMARKS` longtext,
+  `CONTINUE_EDUCATION` longtext,
+  `CERTIFICATION_URL` varchar(255) DEFAULT NULL,
+  `CREATED_TIME` datetime(6) DEFAULT NULL,
+  `MODIFIED_TIME` datetime(6) DEFAULT NULL,
+  `CREATOR` int DEFAULT NULL,
+  `LAST_MODIFIER` int DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `EMPLOYEE_ID` (`EMPLOYEE_ID`),
+  KEY `FKilhe3o0qcg4oiievx0qckfjwf` (`CREATOR`),
+  KEY `FKj1uyg5xqxc8ixruu5bs4gb0qq` (`LAST_MODIFIER`),
+  CONSTRAINT `employee_professional_licence_ibfk_1` FOREIGN KEY (`EMPLOYEE_ID`) REFERENCES `EMPLOYEE` (`ID`),
+  CONSTRAINT `FKilhe3o0qcg4oiievx0qckfjwf` FOREIGN KEY (`CREATOR`) REFERENCES `USER` (`ID`),
+  CONSTRAINT `FKj1uyg5xqxc8ixruu5bs4gb0qq` FOREIGN KEY (`LAST_MODIFIER`) REFERENCES `USER` (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `EMPLOYEE_PROFESSIONAL_LICENCE`
+--
+
+LOCK TABLES `EMPLOYEE_PROFESSIONAL_LICENCE` WRITE;
+/*!40000 ALTER TABLE `EMPLOYEE_PROFESSIONAL_LICENCE` DISABLE KEYS */;
+/*!40000 ALTER TABLE `EMPLOYEE_PROFESSIONAL_LICENCE` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `EMPLOYEE_PROFESSIONAL_LICENCE_AUD`
+--
+
+DROP TABLE IF EXISTS `EMPLOYEE_PROFESSIONAL_LICENCE_AUD`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `EMPLOYEE_PROFESSIONAL_LICENCE_AUD` (
+  `id` int NOT NULL,
+  `REV` int NOT NULL,
+  `REVTYPE` tinyint DEFAULT NULL,
+  `CREATED_TIME` datetime(6) DEFAULT NULL,
+  `MODIFIED_TIME` datetime(6) DEFAULT NULL,
+  `CERTIFICATION_URL` varchar(255) DEFAULT NULL,
+  `CONTINUE_EDUCATION` longtext,
+  `COUNTRY_OF_VALIDITY` varchar(100) DEFAULT NULL,
+  `deleted` bit(1) DEFAULT NULL,
+  `DOCUMENT_UPLOAD` varchar(200) DEFAULT NULL,
+  `EXPIRATION_DATE` datetime(6) DEFAULT NULL,
+  `ISSUE_DATE` datetime(6) DEFAULT NULL,
+  `ISSUING_AUTHORITY` varchar(255) DEFAULT NULL,
+  `LICENSE_NAME` varchar(255) DEFAULT NULL,
+  `LICENSE_NUMBER` varchar(100) DEFAULT NULL,
+  `LICENSE_STATUS` enum('Active','Expired','Pending','Revoked','Renewal') DEFAULT NULL,
+  `LICENSE_TYPE` enum('Technical','Medical','Legal','Educational','Safety','Driving','Financial','Engineering','IT/Technology','Real Estate','Consulting','Management','Scientific','Creative/Arts','Healthcare','Environmental','Maritime','Aviation','Construction','Other') DEFAULT NULL,
+  `remarks` longtext,
+  `RENEWAL_DATE` datetime(6) DEFAULT NULL,
+  `RENEWAL_REQUIRED` bit(1) DEFAULT NULL,
+  `SCOPE_OF_PRACTICE` longtext,
+  `CREATOR` int DEFAULT NULL,
+  `LAST_MODIFIER` int DEFAULT NULL,
+  `EMPLOYEE_ID` int DEFAULT NULL,
+  PRIMARY KEY (`REV`,`id`),
+  CONSTRAINT `FK55wpdet50temxepcjxcmjv9j8` FOREIGN KEY (`REV`) REFERENCES `REVINFO` (`REV`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `EMPLOYEE_PROFESSIONAL_LICENCE_AUD`
+--
+
+LOCK TABLES `EMPLOYEE_PROFESSIONAL_LICENCE_AUD` WRITE;
+/*!40000 ALTER TABLE `EMPLOYEE_PROFESSIONAL_LICENCE_AUD` DISABLE KEYS */;
+/*!40000 ALTER TABLE `EMPLOYEE_PROFESSIONAL_LICENCE_AUD` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `FACILITY_MANAGEMENT`
+--
+
+DROP TABLE IF EXISTS `FACILITY_MANAGEMENT`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `FACILITY_MANAGEMENT` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `DELETED` tinyint(1) NOT NULL DEFAULT '0',
+  `EMPLOYEE_ID` int DEFAULT NULL,
+  `NATIONAL_ID` varchar(100) DEFAULT NULL,
+  `PARKING_ACCESS` enum('Yes','No') DEFAULT NULL,
+  `PARKING_FLOOR` varchar(50) DEFAULT NULL,
+  `PARKING_SLOT_NUMBER` varchar(100) DEFAULT NULL,
+  `OFFICE_BUILDING` varchar(255) DEFAULT NULL,
+  `FLOOR_NUMBER` varchar(50) DEFAULT NULL,
+  `START_DATE` datetime DEFAULT NULL,
+  `END_DATE` datetime DEFAULT NULL,
+  `CONTACT_NUMBER` varchar(20) DEFAULT NULL,
+  `CAR_PLATE_NUMBER` varchar(20) DEFAULT NULL,
+  `COMPANY_NAME` varchar(255) DEFAULT NULL,
+  `ACCESS_CARD_NUMBER` varchar(100) DEFAULT NULL,
+  `CREATED_TIME` datetime(6) DEFAULT NULL,
+  `MODIFIED_TIME` datetime(6) DEFAULT NULL,
+  `CREATOR` int DEFAULT NULL,
+  `LAST_MODIFIER` int DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `EMPLOYEE_ID` (`EMPLOYEE_ID`),
+  KEY `FKlybfabuvg8c0673n6lckgxwlt` (`CREATOR`),
+  KEY `FK3004st4g5cngwom8am67ka99t` (`LAST_MODIFIER`),
+  CONSTRAINT `facility_management_ibfk_1` FOREIGN KEY (`EMPLOYEE_ID`) REFERENCES `EMPLOYEE` (`ID`),
+  CONSTRAINT `FK3004st4g5cngwom8am67ka99t` FOREIGN KEY (`LAST_MODIFIER`) REFERENCES `USER` (`ID`),
+  CONSTRAINT `FKlybfabuvg8c0673n6lckgxwlt` FOREIGN KEY (`CREATOR`) REFERENCES `USER` (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `FACILITY_MANAGEMENT`
+--
+
+LOCK TABLES `FACILITY_MANAGEMENT` WRITE;
+/*!40000 ALTER TABLE `FACILITY_MANAGEMENT` DISABLE KEYS */;
+/*!40000 ALTER TABLE `FACILITY_MANAGEMENT` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `FACILITY_MANAGEMENT_AUD`
+--
+
+DROP TABLE IF EXISTS `FACILITY_MANAGEMENT_AUD`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `FACILITY_MANAGEMENT_AUD` (
+  `id` int NOT NULL,
+  `REV` int NOT NULL,
+  `REVTYPE` tinyint DEFAULT NULL,
+  `CREATED_TIME` datetime(6) DEFAULT NULL,
+  `MODIFIED_TIME` datetime(6) DEFAULT NULL,
+  `ACCESS_CARD_NUMBER` varchar(100) DEFAULT NULL,
+  `CAR_PLATE_NUMBER` varchar(20) DEFAULT NULL,
+  `COMPANY_NAME` varchar(255) DEFAULT NULL,
+  `CONTACT_NUMBER` varchar(20) DEFAULT NULL,
+  `deleted` bit(1) DEFAULT NULL,
+  `END_DATE` datetime(6) DEFAULT NULL,
+  `FLOOR_NUMBER` varchar(50) DEFAULT NULL,
+  `NATIONAL_ID` varchar(100) DEFAULT NULL,
+  `OFFICE_BUILDING` varchar(255) DEFAULT NULL,
+  `PARKING_ACCESS` enum('Yes','No') DEFAULT NULL,
+  `PARKING_FLOOR` varchar(50) DEFAULT NULL,
+  `PARKING_SLOT_NUMBER` varchar(100) DEFAULT NULL,
+  `START_DATE` datetime(6) DEFAULT NULL,
+  `CREATOR` int DEFAULT NULL,
+  `LAST_MODIFIER` int DEFAULT NULL,
+  `EMPLOYEE_ID` int DEFAULT NULL,
+  PRIMARY KEY (`REV`,`id`),
+  CONSTRAINT `FKqevqrhnji9n38rf0d9wbq4hep` FOREIGN KEY (`REV`) REFERENCES `REVINFO` (`REV`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `FACILITY_MANAGEMENT_AUD`
+--
+
+LOCK TABLES `FACILITY_MANAGEMENT_AUD` WRITE;
+/*!40000 ALTER TABLE `FACILITY_MANAGEMENT_AUD` DISABLE KEYS */;
+/*!40000 ALTER TABLE `FACILITY_MANAGEMENT_AUD` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `RELOCATION`
+--
+
+DROP TABLE IF EXISTS `RELOCATION`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `RELOCATION` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `DELETED` tinyint(1) NOT NULL DEFAULT '0',
+  `EMPLOYEE_ID` int DEFAULT NULL,
+  `PREFERRED_TRAVEL_DATE` datetime DEFAULT NULL,
+  `PREFERRED_TRAVEL_TIME` datetime DEFAULT NULL,
+  `DEPARTING_COUNTRY` varchar(100) DEFAULT NULL,
+  `DEPARTING_AIRPORT_CITY` varchar(100) DEFAULT NULL,
+  `ARRIVING_COUNTRY` varchar(100) DEFAULT NULL,
+  `ARRIVING_AIRPORT_CITY` varchar(100) DEFAULT NULL,
+  `RELOCATION_STATUS` enum('Planned','Scheduled','In Progress','Completed','Cancelled') DEFAULT NULL,
+  `ACCOMMODATION` enum('Yes','No') DEFAULT NULL,
+  `AIRLINE` varchar(100) DEFAULT NULL,
+  `ELIGIBLE_TICKET_CLASS` enum('Economy','Business','First') DEFAULT NULL,
+  `COMMENT` longtext,
+  `FLIGHT_DURATION` varchar(50) DEFAULT NULL,
+  `FLIGHT_TIME` datetime DEFAULT NULL,
+  `TRANSIT_AIRPORTS` longtext,
+  `TRANSIT_PERIOD_START_DATE` datetime DEFAULT NULL,
+  `TRANSIT_PERIOD_END_DATE` datetime DEFAULT NULL,
+  `FLIGHT_COST` double DEFAULT NULL,
+  `HOTEL_NAME` varchar(255) DEFAULT NULL,
+  `HOTEL_LOCATION` varchar(255) DEFAULT NULL,
+  `CHECK_IN_TIME_AND_DATE` datetime DEFAULT NULL,
+  `CHECK_OUT_TIME_AND_DATE` datetime DEFAULT NULL,
+  `HOTEL_COST` double DEFAULT NULL,
+  `ATTACHMENT` varchar(200) DEFAULT NULL,
+  `CREATED_TIME` datetime(6) DEFAULT NULL,
+  `MODIFIED_TIME` datetime(6) DEFAULT NULL,
+  `CREATOR` int DEFAULT NULL,
+  `LAST_MODIFIER` int DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `EMPLOYEE_ID` (`EMPLOYEE_ID`),
+  KEY `FKa6om8f0pef31dseqd8gk8pgt1` (`CREATOR`),
+  KEY `FKmyg4wi16yc3e81jpsot19scud` (`LAST_MODIFIER`),
+  CONSTRAINT `FKa6om8f0pef31dseqd8gk8pgt1` FOREIGN KEY (`CREATOR`) REFERENCES `USER` (`ID`),
+  CONSTRAINT `FKmyg4wi16yc3e81jpsot19scud` FOREIGN KEY (`LAST_MODIFIER`) REFERENCES `USER` (`ID`),
+  CONSTRAINT `relocation_ibfk_1` FOREIGN KEY (`EMPLOYEE_ID`) REFERENCES `EMPLOYEE` (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `RELOCATION`
+--
+
+LOCK TABLES `RELOCATION` WRITE;
+/*!40000 ALTER TABLE `RELOCATION` DISABLE KEYS */;
+/*!40000 ALTER TABLE `RELOCATION` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `RELOCATION_AUD`
+--
+
+DROP TABLE IF EXISTS `RELOCATION_AUD`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `RELOCATION_AUD` (
+  `id` int NOT NULL,
+  `REV` int NOT NULL,
+  `REVTYPE` tinyint DEFAULT NULL,
+  `CREATED_TIME` datetime(6) DEFAULT NULL,
+  `MODIFIED_TIME` datetime(6) DEFAULT NULL,
+  `ACCOMMODATION` enum('Yes','No') DEFAULT NULL,
+  `airline` varchar(100) DEFAULT NULL,
+  `ARRIVING_AIRPORT_CITY` varchar(100) DEFAULT NULL,
+  `ARRIVING_COUNTRY` varchar(100) DEFAULT NULL,
+  `attachment` varchar(200) DEFAULT NULL,
+  `CHECK_IN_TIME_AND_DATE` datetime(6) DEFAULT NULL,
+  `CHECK_OUT_TIME_AND_DATE` datetime(6) DEFAULT NULL,
+  `comment` longtext,
+  `deleted` bit(1) DEFAULT NULL,
+  `DEPARTING_AIRPORT_CITY` varchar(100) DEFAULT NULL,
+  `DEPARTING_COUNTRY` varchar(100) DEFAULT NULL,
+  `ELIGIBLE_TICKET_CLASS` enum('Economy','Business','First') DEFAULT NULL,
+  `FLIGHT_COST` double DEFAULT NULL,
+  `FLIGHT_DURATION` varchar(50) DEFAULT NULL,
+  `FLIGHT_TIME` datetime(6) DEFAULT NULL,
+  `HOTEL_COST` double DEFAULT NULL,
+  `HOTEL_LOCATION` varchar(255) DEFAULT NULL,
+  `HOTEL_NAME` varchar(255) DEFAULT NULL,
+  `PREFERRED_TRAVEL_DATE` datetime(6) DEFAULT NULL,
+  `PREFERRED_TRAVEL_TIME` datetime(6) DEFAULT NULL,
+  `RELOCATION_STATUS` enum('Planned','Scheduled','In Progress','Completed','Cancelled') DEFAULT NULL,
+  `TRANSIT_AIRPORTS` longtext,
+  `TRANSIT_PERIOD_END_DATE` datetime(6) DEFAULT NULL,
+  `TRANSIT_PERIOD_START_DATE` datetime(6) DEFAULT NULL,
+  `CREATOR` int DEFAULT NULL,
+  `LAST_MODIFIER` int DEFAULT NULL,
+  `EMPLOYEE_ID` int DEFAULT NULL,
+  PRIMARY KEY (`REV`,`id`),
+  CONSTRAINT `FK6v9eqoo10kuqmd7h0xbe5vdbh` FOREIGN KEY (`REV`) REFERENCES `REVINFO` (`REV`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `RELOCATION_AUD`
+--
+
+LOCK TABLES `RELOCATION_AUD` WRITE;
+/*!40000 ALTER TABLE `RELOCATION_AUD` DISABLE KEYS */;
+/*!40000 ALTER TABLE `RELOCATION_AUD` ENABLE KEYS */;
+UNLOCK TABLES;
+

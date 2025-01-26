@@ -1,0 +1,5 @@
+SERVICE,GIT_URL,GITTAG,DEPLOYMENT_DATE
+hrms,https://github.com/bntvc/hrms.git,v2.0.10,20-Jun-2024
+hrms,https://github.com/bntvc/hrms.git,v3.1.10_ui,18-Jul-2024
+hrms,https://github.com/bntvc/hrms.git,v3.1.11_ui,19-Jul-2024
+hrms,https://github.com/bntvc/hrms.git,v3.2.2_ui,23-Jul-2024

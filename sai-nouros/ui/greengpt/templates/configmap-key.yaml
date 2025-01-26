@@ -1,0 +1,8 @@
+{{- if .Values.configMap.createkeycloakContextConfigmap -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: "{{ .Release.Name }}-context-cm"
+data:
+  {{ (.Files.Glob "configmapfiles/keycloak-context.json").AsConfig   | nindent 1 }}
+{{- end }}
