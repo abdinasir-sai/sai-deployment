@@ -21,7 +21,6 @@ spec:
         {{- include "greengpt-ui-ui.selectorLabels" . | nindent 8 }}
     spec:
       {{- with .Values.imagePullSecrets }}
-      serviceAccountName: {{ .Values.serviceAccount.name }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
