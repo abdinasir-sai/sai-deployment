@@ -7,7 +7,7 @@ imagePullSecrets: []
 nameOverride: ''
 fullnameOverride: ''
 serviceAccount:
-  create: false
+  create: true
   annotations: {}
   name: 'jenkins-service-account'
 podAnnotations:
