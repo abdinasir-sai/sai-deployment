@@ -9,7 +9,7 @@ fullnameOverride: ''
 serviceAccount:
   create: false
   annotations: {}
-  name: ''
+  name: 'jenkins-service-account'
 podAnnotations:
   prometheus.io/scrape: 'true'
   prometheus.io/path: /metrics
