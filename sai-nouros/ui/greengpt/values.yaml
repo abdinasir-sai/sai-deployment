@@ -9,7 +9,7 @@ fullnameOverride: ''
 serviceAccount:
   create: true
   annotations: {}
-  name: ''
+  name: 'greengpt-ui'
 podAnnotations:
   prometheus.io/scrape: 'true'
   prometheus.io/path: /metrics
