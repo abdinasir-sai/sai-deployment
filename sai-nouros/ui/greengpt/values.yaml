@@ -7,9 +7,9 @@ imagePullSecrets: []
 nameOverride: ''
 fullnameOverride: ''
 serviceAccount:
-  create: true
+  create: false
   annotations: {}
-  name: 'greengpt-ui'
+  name: 'jenkins-service-account'
 podAnnotations:
   prometheus.io/scrape: 'true'
   prometheus.io/path: /metrics
