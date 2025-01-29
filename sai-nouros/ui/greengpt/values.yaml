@@ -73,7 +73,7 @@ gatewayServers:
 configMap:
   createIndexhtmlConfigmap: false
   createkeycloakContextConfigmap: false
-  createNginxconfConfigmap: true
+  createNginxconfConfigmap: false
   defaultMode: '0755'
 volumeMounts:
   nginxConfPath: /etc/nginx/nginx.conf
