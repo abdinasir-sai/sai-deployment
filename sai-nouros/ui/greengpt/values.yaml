@@ -4,13 +4,13 @@ image:
   pullPolicy: Always
   tag: newTagValue
 imagePullSecrets:
-  - name: registry-auth
+- name: registry-auth
 nameOverride: ''
 fullnameOverride: ''
 serviceAccount:
   create: true
   annotations: {}
-  name: 'sai-sv-account'
+  name: sai-sv-account
 podAnnotations:
   prometheus.io/scrape: 'true'
   prometheus.io/path: /metrics
