@@ -3,7 +3,8 @@ image:
   repository: registry.visionwaves.com/greengpt-ui
   pullPolicy: Always
   tag: newTagValue
-imagePullSecrets: registry-auth
+imagePullSecrets:
+  - name: registry-auth
 nameOverride: ''
 fullnameOverride: ''
 serviceAccount:
