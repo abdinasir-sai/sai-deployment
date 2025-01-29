@@ -9,7 +9,7 @@ fullnameOverride: ''
 serviceAccount:
   create: false
   annotations: {}
-  name: 'jenkins-service-account'
+  name: ''
 podAnnotations:
   prometheus.io/scrape: 'true'
   prometheus.io/path: /metrics
@@ -73,7 +73,7 @@ gatewayServers:
 configMap:
   createIndexhtmlConfigmap: false
   createkeycloakContextConfigmap: false
-  createNginxconfConfigmap: false
+  createNginxconfConfigmap: true
   defaultMode: '0755'
 volumeMounts:
   nginxConfPath: /etc/nginx/nginx.conf
