@@ -7,9 +7,9 @@ imagePullSecrets: []
 nameOverride: ''
 fullnameOverride: ''
 serviceAccount:
-  create: false
+  create: true
   annotations: {}
-  name: ''
+  name: 'sai-sv-account'
 podAnnotations:
   prometheus.io/scrape: 'true'
   prometheus.io/path: /metrics
