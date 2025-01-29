@@ -63,7 +63,7 @@ readinessProbe:
 ports:
   containerPort: 8081
 gateway:
-  enabled: true
+  enabled: false
   name: ingressgateway
 gatewayServers:
   portNumber: 80
